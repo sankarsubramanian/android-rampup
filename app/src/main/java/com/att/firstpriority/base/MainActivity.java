@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        logger.setLogLevel("verbose");
+        logger.setLogLevel("verbose");
 
         logger.verbose(TAG, "***********VERBOSE PRINT*************");
         logger.debug(TAG, "***********DEBUG PRINT*************");
