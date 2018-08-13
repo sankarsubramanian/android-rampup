@@ -1,4 +1,4 @@
-package com.att.nls;
+package main.java.att.nls;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
