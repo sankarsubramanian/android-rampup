@@ -33,7 +33,7 @@ public class Events extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		JSONArray eventsList = new JSONArray();
 		PrintWriter pw = response.getWriter();
@@ -64,9 +64,11 @@ public class Events extends HttpServlet {
 				}
 			}
 			response.setContentType("application/json");
-			
+
 			if (eventsList.length() != 0) {
-				pw.print(eventsList);
+				JSONObject events = new JSONObject();
+				events.put("events", eventsList);
+				pw.print(events);
 			} else {
 				response.setStatus(204);
 			}
@@ -78,7 +80,7 @@ public class Events extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		System.out.println("AT&T push Notification to updateEvents");
 
@@ -103,6 +105,7 @@ public class Events extends HttpServlet {
 			JSONArray subscriptions = (JSONArray)notification.get("subscriptions");
 			
 			updateEvents(subscriptions);
+			response.setStatus(200);
 
 		}catch(Exception e){ 
 			System.out.println("Exception catch" + e);
