@@ -15,24 +15,50 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
- * Servlet implementation class Events
+ * Class representing Notification listener for AT&T push notification service.
+ *
  */
 @WebServlet("/events")
 public class Events extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	JSONArray events = new JSONArray();
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public Events() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    /**
+     * {get} /events Get Notification Events per subscriber
+     *
+     * @param request the ServletRequest object contains the (Query string) subscriptionId Comma separated list of Subscription IDs
+     * @param response the ServletResponse object contains the events <br>
+     * Response: <br>
+     * {Array} events array of all the notification events <br>
+     * {String} subscriptionId Notification Subscription Id <br>
+     * {String} callbackData Call Back Data <br>
+     * {Array} notificationEvents Session events <br>
+     * {String} sessionStatus Session status <br>
+     * {String} type Notification Event Type <br>
+     *
+     * Example Response:
+     * <pre>
+     *  HTTP/1.1 200 OK
+     *  {
+     *   "events": [
+     *    {
+     *      "subscriptionId": "SUBSCRIPTION_ID1",
+     *      "callbackData": "unique_user_id@att.com",
+     *      "notificationEvents": [
+     *        {
+     *          "sessionStatus": "create_defined",
+     *          "type": "FIRSTNET_APP_SESSION"
+     *        }
+     *      ]
+     *     }
+     *    ]
+     *  }
+     *  </pre>
+     */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		JSONArray eventsList = new JSONArray();
@@ -77,9 +103,6 @@ public class Events extends HttpServlet {
 		} 
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		System.out.println("AT&T push Notification to updateEvents");
